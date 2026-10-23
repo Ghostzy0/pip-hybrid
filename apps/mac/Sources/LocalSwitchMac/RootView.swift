@@ -190,6 +190,12 @@ struct RootView: View {
         }
 
       }
+      if args.contains("--qa-output"), args.contains("--qa-many-chats") {
+        app.conversations = (1...18).map { number in
+          SavedConversation(
+            id: UUID(), messages: [ChatMessage(role: "user", content: "Synthetic chat \(number)")])
+        }
+      }
       if let qaScreen {
         switch qaScreen {
         case "onboarding":
@@ -239,7 +245,7 @@ struct RootView: View {
           .padding(.horizontal, 25).padding(.top, 27).padding(.bottom, 9)
         ScrollView {
           VStack(alignment: .leading, spacing: 2) {
-            ForEach(app.conversations.prefix(12)) { conversation in
+            ForEach(app.conversations) { conversation in
               Button {
                 app.openConversation(conversation.id)
                 page = .workspace
@@ -297,6 +303,7 @@ struct RootView: View {
         Button("Stop", systemImage: "stop.fill") { app.stop() }
           .buttonStyle(QuietButtonStyle())
           .accessibilityLabel("Stop active operation")
+          .keyboardShortcut(".", modifiers: .command)
       }
       StatusPill(title: app.cloudMode ? "ChatGPT · review first" : "On this Mac")
     }

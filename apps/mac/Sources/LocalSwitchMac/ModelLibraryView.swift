@@ -29,6 +29,19 @@ struct ModelLibraryView: View {
               horizontal: false, vertical: true)
           }
         }
+        if ProcessInfo.processInfo.arguments.contains("--qa-output"),
+          ProcessInfo.processInfo.arguments.contains("--qa-download-preview")
+        {
+          VStack(alignment: .leading, spacing: 12) {
+            Text("Appearance preview · synthetic download states").font(
+              .pip(size: 12, weight: .semibold))
+            Text("Downloading · 42%").font(.pip(size: 11))
+            ModelDownloadProgress(value: 0.42)
+            Text("Paused · 42%").font(.pip(size: 11))
+            ModelDownloadProgress(value: 0.42)
+            Button("Disabled action") {}.buttonStyle(QuietButtonStyle()).disabled(true)
+          }.padding(16).background(p.quiet, in: RoundedRectangle(cornerRadius: 18))
+        }
         HStack(alignment: .top, spacing: 26) {
           modelFact(
             "memorychip",
@@ -176,7 +189,7 @@ struct ModelRow: View {
           if models.phase == "verifying" {
             ProgressView().controlSize(.small)
           } else {
-            ProgressView(value: min(1, max(0, models.progress))).tint(p.accentInk)
+            ModelDownloadProgress(value: models.progress)
           }
           HStack(spacing: 10) {
             if models.phase == "downloading" {
@@ -245,5 +258,16 @@ struct ModelRow: View {
     .overlay(
       RoundedRectangle(cornerRadius: 14).strokeBorder(
         selected ? p.secondary.opacity(0.6) : p.border.opacity(0.6), lineWidth: 1))
+  }
+}
+
+/// Shared by real downloading/paused rows and isolated appearance previews.
+struct ModelDownloadProgress: View {
+  let value: Double
+  @Environment(\.colorScheme) private var scheme
+  var body: some View {
+    ProgressView(value: min(1, max(0, value)))
+      .tint(SwitchPalette(scheme).ink)
+      .accessibilityLabel("Download progress")
   }
 }

@@ -19,6 +19,11 @@
       "sha256": "ec19ef1d90758d46d1ec39eba6b1ce3bbf60e93da10b2ece0aaa90a0e27f699b"
     },
     {
+      "path": ".github/workflows/native.yml",
+      "bytes": 1114,
+      "sha256": "dac263251387cbf938f4869acf0ccc9b56e72e709a3325a4297fd22277b75978"
+    },
+    {
       "path": ".github/workflows/source-checks.yml",
       "bytes": 1821,
       "sha256": "54c1b69487d819dd9f20ca537a06df72304f895180321938e1f44cc9ae9a5ada"
@@ -35,8 +40,8 @@
     },
     {
       "path": "CONTRIBUTING.md",
-      "bytes": 1203,
-      "sha256": "23a64ad6a764e5f96b95db030196baa54a41c35e240e4cec1114406ee9d239d8"
+      "bytes": 1267,
+      "sha256": "3f328cbe943eac8881167eefd777ea87dc1ac7937cf37c21b265dbabc79d55ad"
     },
     {
       "path": "LICENSE",
@@ -195,8 +200,8 @@
     },
     {
       "path": "apps/mac/Sources/LocalSwitchMac/ModelLibraryView.swift",
-      "bytes": 10830,
-      "sha256": "349ead3b006d1c3bc15780492df0dd3532097501deeea1967fb59a3cdc2ea19b"
+      "bytes": 11877,
+      "sha256": "fadde3cf1887d6aad31f921a4900721f5bb6379c121c7ab103515c2071513e7e"
     },
     {
       "path": "apps/mac/Sources/LocalSwitchMac/OnboardingView.swift",
@@ -225,13 +230,13 @@
     },
     {
       "path": "apps/mac/Sources/LocalSwitchMac/RootView.swift",
-      "bytes": 12413,
-      "sha256": "7bc3237d7bbda84c2b644b52006064e29f2e8ccef8fa5437137377959dcab79e"
+      "bytes": 12730,
+      "sha256": "6e9fee1eefc05e5c4fe977d9aea5af470faa92dbff6c232e4fab9687c7b63d03"
     },
     {
       "path": "apps/mac/Sources/LocalSwitchMac/Theme.swift",
-      "bytes": 4637,
-      "sha256": "8c03307880901c3151052c276512494309394e6cb279167cd1d6e122d3f5c778"
+      "bytes": 4722,
+      "sha256": "27b36aff7bc9dcb421b1e731b457eb531843f0271acf344a646f7d63cb268601"
     },
     {
       "path": "apps/mac/Sources/LocalSwitchMac/Typography.swift",
@@ -325,8 +330,8 @@
     },
     {
       "path": "docs/TESTING.md",
-      "bytes": 3193,
-      "sha256": "67c747ac1c4e2ca2e8ec0de5960c86a33ae4ac1826f274221e9b64b42b77bc9d"
+      "bytes": 3427,
+      "sha256": "8ac76bc4a5a908fbd0e4a95ab1672a3d0f4f82eb749d43e1c6c7c95a359c52b2"
     },
     {
       "path": "docs/assets/pip-hybrid.svg",

@@ -1,0 +1,37 @@
+name: Native editions
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: native-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  native:
+    # Never spend private-runner allowance. Standard public macOS runners only.
+    if: github.event.repository.private == false
+    runs-on: macos-15
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        edition: [baseline, pip]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Native fixture tests
+        env:
+          EDITION: ${{ matrix.edition }}
+        run: |
+          if [ "$EDITION" = baseline ]; then
+            swift test --package-path apps/mac --scratch-path apps/mac/.build-ci --jobs 4 -Xswiftc -DBASELINE_EDITION
+          else
+            swift test --package-path apps/mac --scratch-path apps/mac/.build-ci --jobs 4
+          fi
+      - name: Build and verify local ad-hoc package
+        env:
+          EDITION: ${{ matrix.edition }}
+        run: ./scripts/build-mac.sh "$EDITION"

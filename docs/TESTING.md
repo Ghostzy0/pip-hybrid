@@ -34,4 +34,4 @@ Do not change owner stores or sign out/revoke working credentials just to test. 
 
 ## CI
 
-The included workflow is manual, Linux source-only and uses a pinned checkout action. It checks script syntax and asset/provenance structure. It does not compile SwiftUI or test a packaged app. Native CI should be added only after available runner allowance and spending boundaries are confirmed. A green source check is not native acceptance.
+The manual Linux source workflow checks script syntax and asset/provenance structure. The native workflow runs on pull requests, pushes to main and manual dispatch, only when this repository is public. It uses standard Apple Silicon macOS runners, tests both editions and builds/verifies their ad-hoc packages sequentially. Both workflows use pinned checkout actions with read-only permissions. No models, account sessions, interactive app tests or release artefacts are uploaded. Native fixture/package CI does not establish Keychain, UI, provider or accessibility acceptance.
