@@ -31,9 +31,17 @@ Both editions compile the same backend and workflow source. `BASELINE_EDITION` s
 
 The baseline is an independently authored behavioral implementation on a licensed LocalSwitch foundation, inspired by aspects of [Perplexity](https://www.perplexity.ai/) as a workflow reference. It contains no proprietary Perplexity source/assets and makes no affiliation, endorsement or equivalence claim. Web research, broad document processing and a complete hybrid task graph are not established by this alpha.
 
+## Native previews
+
+The current Pip workspace and setup use an original MIT mascot. These native renders contain labelled synthetic state; they do not demonstrate a completed model request.
+
+![Pip workspace with synthetic sample state](docs/assets/pip-workspace.png)
+
+[Baseline workspace](docs/assets/baseline-workspace.png) · [Pip setup](docs/assets/pip-setup.png) · [Capture identities and limits](docs/SCREENSHOTS.md)
+
 ## About and references
 
-Maintained by [Ghostzy0](https://github.com/Ghostzy0). The intended standalone repository is `Ghostzy0/pip-hybrid`; this document does not assert that repository or a public release exists. Check the repository you are actually reading before using its issue or release pages.
+Maintained by [Ghostzy0](https://github.com/Ghostzy0). Repository: [Ghostzy0/pip-hybrid](https://github.com/Ghostzy0/pip-hybrid). Release and availability claims must match the repository state you are actually reading.
 
 Application source retains the [LocalSwitch MIT licence](LICENSE). Original Pip artwork is MIT. [llama.cpp](https://github.com/ggml-org/llama.cpp) supplies the separately downloaded runtime; [Geist](https://github.com/vercel/geist-font) supplies the licensed fonts for the Pip edition; catalogue Qwen model references retain their separate Apache-2.0 terms. See [notices](THIRD_PARTY_NOTICES.md) for exact pins and boundaries.
 

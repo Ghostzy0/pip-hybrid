@@ -35,8 +35,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 1018,
-      "sha256": "5c1f7d1ca5719b116b9e8e94ea74a20305890dc959d4f890043c6c8177318b40"
+      "bytes": 1323,
+      "sha256": "84992ce16f36f9d950ab39763790c561e4052ec83ddb2c4735ad5e35d504c15d"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -50,8 +50,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 3921,
-      "sha256": "0ace5c6b5eb33012ba96600da9e4857fbc485980d0a9c20d6e531076ff2f6ff8"
+      "bytes": 4288,
+      "sha256": "fa4923e1761ab48db2e6b2751f6a60104a003cd81108cecdb322d6f188854cf9"
     },
     {
       "path": "SECURITY.md",
@@ -200,8 +200,8 @@
     },
     {
       "path": "apps/mac/Sources/LocalSwitchMac/ModelLibraryView.swift",
-      "bytes": 11877,
-      "sha256": "fadde3cf1887d6aad31f921a4900721f5bb6379c121c7ab103515c2071513e7e"
+      "bytes": 12527,
+      "sha256": "b76a9c2f52f3f1c548bb3a9e668b1cf7dc42a232225365e9b69c9aa4756171f9"
     },
     {
       "path": "apps/mac/Sources/LocalSwitchMac/OnboardingView.swift",
@@ -325,8 +325,8 @@
     },
     {
       "path": "docs/SCREENSHOTS.md",
-      "bytes": 1023,
-      "sha256": "d28b9242919eba9282050fd7151442a5671b9fa3578f9cefecf64aa6d2353c70"
+      "bytes": 1302,
+      "sha256": "acd464e5f0ae4f884e6836de637a242a02c10f335d095d1a571395e2f268c4f1"
     },
     {
       "path": "docs/TESTING.md",
@@ -334,9 +334,24 @@
       "sha256": "8ac76bc4a5a908fbd0e4a95ab1672a3d0f4f82eb749d43e1c6c7c95a359c52b2"
     },
     {
+      "path": "docs/assets/baseline-workspace.png",
+      "bytes": 195651,
+      "sha256": "d3632f0a9d20a67fefbf15743979c75a670367712388446e1f0362da0779cdd4"
+    },
+    {
       "path": "docs/assets/pip-hybrid.svg",
       "bytes": 1003,
       "sha256": "383ca1a3f1b2f76660869f6ce1073f5c97779288ec937df7f1e851277d7cccf4"
+    },
+    {
+      "path": "docs/assets/pip-setup.png",
+      "bytes": 206978,
+      "sha256": "c83a6ebed9decccbdb4231e59c3634d6fb9f0b679b557a69c3b1345b58c904dc"
+    },
+    {
+      "path": "docs/assets/pip-workspace.png",
+      "bytes": 213712,
+      "sha256": "2e340e00aedae3f2eed011560e7015daa627582d9810258b7f631eb7b3cfa69c"
     },
     {
       "path": "scripts/build-mac.sh",

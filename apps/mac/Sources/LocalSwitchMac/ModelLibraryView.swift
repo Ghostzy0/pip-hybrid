@@ -264,10 +264,25 @@ struct ModelRow: View {
 /// Shared by real downloading/paused rows and isolated appearance previews.
 struct ModelDownloadProgress: View {
   let value: Double
-  @Environment(\.colorScheme) private var scheme
   var body: some View {
     ProgressView(value: min(1, max(0, value)))
-      .tint(SwitchPalette(scheme).ink)
+      .progressViewStyle(ModelDownloadProgressStyle())
       .accessibilityLabel("Download progress")
+  }
+}
+
+private struct ModelDownloadProgressStyle: ProgressViewStyle {
+  @Environment(\.colorScheme) private var scheme
+  func makeBody(configuration: Configuration) -> some View {
+    let palette = SwitchPalette(scheme)
+    let fraction = min(1, max(0, configuration.fractionCompleted ?? 0))
+    // Native macOS tint is muted in an inactive window. Keep the actual segment
+    // readable there too, retaining ProgressView's value/accessibility semantics.
+    return GeometryReader { geometry in
+      ZStack(alignment: .leading) {
+        Capsule().fill(palette.border)
+        Capsule().fill(palette.ink).frame(width: geometry.size.width * fraction)
+      }
+    }.frame(height: 6)
   }
 }
