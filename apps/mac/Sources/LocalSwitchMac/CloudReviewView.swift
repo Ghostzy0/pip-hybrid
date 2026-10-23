@@ -73,7 +73,7 @@ private struct CloudReviewView: View {
       HStack {
         Label(
           review.redacted
-            ? "Pattern redaction applied" : "\(review.findings) possible sensitive items",
+            ? "Pattern redaction applied" : "\(review.findings) possible sensitive \(review.findings == 1 ? "item" : "items")",
           systemImage: review.redacted ? "eye.slash" : "eye")
         Spacer()
         if !review.redacted && review.findings > 0 {

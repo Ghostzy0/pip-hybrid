@@ -19,18 +19,17 @@ jobs:
       fail-fast: false
       max-parallel: 1
       matrix:
-        edition: [baseline, pip]
+        edition: [baseline, pip, baseline-plus, pip-plus]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - name: Native fixture tests
         env:
           EDITION: ${{ matrix.edition }}
         run: |
-          if [ "$EDITION" = baseline ]; then
-            swift test --package-path apps/mac --scratch-path apps/mac/.build-ci --jobs 4 -Xswiftc -DBASELINE_EDITION
-          else
-            swift test --package-path apps/mac --scratch-path apps/mac/.build-ci --jobs 4
-          fi
+          set -- --package-path apps/mac --scratch-path apps/mac/.build-ci --jobs 4
+          case "$EDITION" in baseline*) set -- "$@" -Xswiftc -DBASELINE_EDITION ;; esac
+          case "$EDITION" in *-plus) set -- "$@" -Xswiftc -DENHANCED_EDITION ;; esac
+          swift test "$@"
       - name: Build and verify local ad-hoc package
         env:
           EDITION: ${{ matrix.edition }}

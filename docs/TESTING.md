@@ -16,11 +16,13 @@ swift build --package-path apps/mac --scratch-path apps/mac/.build-pip --jobs 4 
 
 The identity tests use temporary synthetic sentinels to check legacy/other-edition model-store preservation and credential namespace derivation. Fixture tests do not establish live Keychain/provider acceptance. Direct `swift build` compiles source; use `./scripts/build-mac.sh baseline` and `./scripts/build-mac.sh pip` for local app packaging and the pinned runtime.
 
+The complete four-variant commands and identities are in [EDITIONS](EDITIONS.md). Enhanced acceptance additionally requires search across more than twelve chats (title/body/draft/Unicode/order/clear/empty results) and selected-chat export (plaintext warning, cancellation, partial state, exact content, overwrite/write failure and no unrelated chat/account data). No source-only receipt closes those native interaction gates.
+
 ## Native acceptance matrix
 
 | Area | Required evidence | This template's status |
 | --- | --- | --- |
-| Baseline and Pip tests | Exact commands/head and real results for both flags | Must be recorded for export head |
+| Four-variant tests | Exact commands/head and real results for all flag combinations | Must be recorded for export head |
 | Clean-source packaging | Both editions built from this export; bundle ID/name/resources/signature checked | Pending separate receipt |
 | Local inference | Chosen model/hash, synthetic prompt, stream/Stop and recovery/restart | Host/model-specific; do not infer from fixtures |
 | Protected history | Native approval if needed, encrypted restart, lock/unavailable-key recovery without data loss | Requires consented native observation |
@@ -34,4 +36,4 @@ Do not change owner stores or sign out/revoke working credentials just to test. 
 
 ## CI
 
-The manual Linux source workflow checks script syntax and asset/provenance structure. The native workflow runs on pull requests, pushes to main and manual dispatch, only when this repository is public. It uses standard Apple Silicon macOS runners, tests both editions and builds/verifies their ad-hoc packages sequentially. Both workflows use pinned checkout actions with read-only permissions. No models, account sessions, interactive app tests or release artefacts are uploaded. Native fixture/package CI does not establish Keychain, UI, provider or accessibility acceptance.
+The manual Linux source workflow checks script syntax and asset/provenance structure. The native workflow runs on pull requests, pushes to main and manual dispatch, only when this repository is public. It uses standard Apple Silicon macOS runners, tests all four variants and builds/verifies their ad-hoc packages sequentially. Both workflows use pinned checkout actions with read-only permissions. No models, account sessions, interactive app tests or release artefacts are uploaded. Native fixture/package CI does not establish Keychain, UI, provider or accessibility acceptance.

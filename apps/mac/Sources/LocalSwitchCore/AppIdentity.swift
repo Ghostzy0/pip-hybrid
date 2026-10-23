@@ -3,15 +3,28 @@ import Foundation
 /// Each source edition owns separate data and credentials. Stores are never adopted implicitly.
 public enum PipAppIdentity {
   #if BASELINE_EDITION
-    public static let edition = "baseline"
+    private static let baseEdition = "baseline"
     public static let isBaseline = true
-    public static let displayName = "Pip Hybrid Baseline"
-    public static let bundleIdentifier = "app.pip.hybrid.baseline"
+    private static let baseName = "Pip Hybrid Baseline"
+    private static let baseBundleIdentifier = "app.pip.hybrid.baseline"
   #else
-    public static let edition = "pip"
+    private static let baseEdition = "pip"
     public static let isBaseline = false
-    public static let displayName = "Pip Hybrid"
-    public static let bundleIdentifier = "app.pip.hybrid.mac"
+    private static let baseName = "Pip Hybrid"
+    private static let baseBundleIdentifier = "app.pip.hybrid.mac"
+  #endif
+  #if ENHANCED_EDITION
+    public static let isEnhanced = true
+    public static let edition = baseEdition + "-plus"
+    public static let displayName = baseName + " Plus"
+    public static let bundleIdentifier = baseBundleIdentifier + ".plus"
+    public static let version = "0.2.0"
+  #else
+    public static let isEnhanced = false
+    public static let edition = baseEdition
+    public static let displayName = baseName
+    public static let bundleIdentifier = baseBundleIdentifier
+    public static let version = "0.1.0"
   #endif
   public static let historyService = bundleIdentifier + ".history"
   public static let chatGPTService = bundleIdentifier + ".chatgpt"

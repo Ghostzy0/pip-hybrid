@@ -179,7 +179,7 @@ struct WorkspaceView: View {
         HStack(alignment: .center, spacing: 8) {
           Image(systemName: "eye")
           Text(
-            "\(SensitiveInfo.scan(app.draft).count) possible sensitive items · scanned on this Mac"
+            "\(SensitiveInfo.scan(app.draft).count) possible sensitive \(SensitiveInfo.scan(app.draft).count == 1 ? "item" : "items") · scanned on this Mac"
           )
           .fixedSize(horizontal: false, vertical: true)
           Spacer(minLength: 3)

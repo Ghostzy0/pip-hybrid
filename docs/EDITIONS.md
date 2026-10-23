@@ -1,27 +1,35 @@
-# Two source editions
+# Four source variants
 
-Both editions compile the same native backend and workflows. The baseline makes the original functional implementation available with native system presentation; Pip adds the original Paper theme and mascot. This is not proprietary reference source or a claim of full Perplexity equivalence.
+One shared core supports two presentation styles and two feature levels. Neutral uses native/system presentation; Pip uses Paper/Geist and original MIT artwork with finite gestures. Enhanced variants add the same local saved-chat search and deliberate current-chat Markdown export. Those additions are separate from reference parity. This is our original behavioral implementation, not proprietary Perplexity code/assets or a full equivalence claim.
 
-| Property | Baseline | Pip (default) |
-| --- | --- | --- |
-| Compile flag | `BASELINE_EDITION` | None |
-| Display name | Pip Hybrid Baseline | Pip Hybrid |
-| Bundle/preferences namespace | `app.pip.hybrid.baseline` | `app.pip.hybrid.mac` |
-| Application Support subfolder | `Pip Hybrid Baseline` | `Pip Hybrid` |
-| Credential services | Baseline bundle ID plus `.history`, `.chatgpt`, `.secrets` | Pip bundle ID plus the same suffixes |
-| Presentation | System fonts, semantic colors, native buttons, static system icon | Paper, bundled Geist, original MIT pebble with finite gestures |
-| Build folder | `apps/mac/.build-baseline` | `apps/mac/.build-pip` |
-| Output | `dist/Pip Hybrid Baseline.app` | `dist/Pip Hybrid.app` |
+| Variant / script argument | Compile flags | App name | Bundle/preferences namespace | Version family |
+| --- | --- | --- | --- | --- |
+| `baseline` | `BASELINE_EDITION` | Pip Hybrid Baseline | `app.pip.hybrid.baseline` |0.1 alpha |
+| `pip` (default) | None | Pip Hybrid | `app.pip.hybrid.mac` |0.1 alpha |
+| `baseline-plus` | Both flags | Pip Hybrid Baseline Plus | `app.pip.hybrid.baseline.plus` |0.2 alpha |
+| `pip-plus` | `ENHANCED_EDITION` | Pip Hybrid Plus | `app.pip.hybrid.mac.plus` |0.2 alpha |
 
-There is no automatic import or sharing of preferences, models, history keys or provider sessions between editions or from the original LocalSwitch app. This namespace separation is not an OS sandbox. Configure each independently. Both retain the same local-only and explicit provider-review boundaries.
+Each app owns `~/Library/Application Support/<App name>/{Models,History}`. Credential services append `.history`, `.chatgpt` or `.secrets` to that variant's bundle ID. Preferences, models, keys and provider sessions are not migrated/shared automatically, including from LocalSwitch. Configure each independently. Namespace separation is not an OS sandbox.
+
+Baseline styles use system fonts, semantic colors, native buttons and a static system symbol with the generic macOS app icon. Pip styles use bundled licensed fonts and the original icon. Backend behavior, explicit provider review and local-only fail-closed rules are shared.
+
+## Reproduce all four
 
 ```sh
 swift test --package-path apps/mac --scratch-path apps/mac/.build-baseline --jobs 4 -Xswiftc -DBASELINE_EDITION
 ./scripts/build-mac.sh baseline
 swift test --package-path apps/mac --scratch-path apps/mac/.build-pip --jobs 4
 ./scripts/build-mac.sh pip
+swift test --package-path apps/mac --scratch-path apps/mac/.build-baseline-plus --jobs 4 -Xswiftc -DBASELINE_EDITION -Xswiftc -DENHANCED_EDITION
+./scripts/build-mac.sh baseline-plus
+swift test --package-path apps/mac --scratch-path apps/mac/.build-pip-plus --jobs 4 -Xswiftc -DENHANCED_EDITION
+./scripts/build-mac.sh pip-plus
 ```
 
-Omitting the script argument builds Pip. The script supplies the flag only for baseline, packages fonts/icon only for Pip and never launches the app. The baseline currently uses macOS's generic application icon; its in-app decorative symbol is native.
+The script supplies the correct flags, separate `.build-<variant>` scratch folder and variant name/ID/version. Outputs are under `dist/<App name>.app`. Builds fetch only the verified runtime; they never launch an app, download model weights or connect accounts. Test results must name the exact variant/source; passing a common core does not accept four native workflows automatically.
 
-Compare the exact two packages using the same synthetic prompts, model, Stop/recovery scenarios and explicit provider consent. A common code path supports a parity argument; only observed tests establish behavior on a particular host.
+## Enhanced behavior
+
+Search scans only this variant's loaded saved-chat titles, visible messages and saved drafts in memory. It preserves history order and creates no plaintext index or network request. Clear search to restore the list; chats outside twelve entries remain available in every variant.
+
+Export uses only the current chat and unsent draft. The app warns that the chosen Markdown file is unencrypted, then opens a native save panel. Cancellation writes nothing; write failure leaves chat/draft unchanged. Partial/stopped results and drafts are labelled, message content is fenced as literal text, and account IDs/credentials/other chats are omitted. The file's destination and any sync/sharing of that folder are your choice.

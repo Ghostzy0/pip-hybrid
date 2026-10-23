@@ -1,6 +1,12 @@
 # Change and patch notes
 
-## Unreleased source snapshot · 2026-10-23
+## 0.2.0 enhanced alpha · in qualification
+
+- Added the same active-variant saved-chat search and explicit selected-chat Markdown export to neutral and Pip enhanced variants.
+- Search is in memory; export warns before writing unencrypted content and omits hidden instructions, account/provider credentials and other chats.
+- Added distinct enhanced identities/versioning/build flags, shared regression fixtures and a four-way public-only CI matrix. Native qualification remains explicitly recorded, not inferred.
+
+## 0.1.0 baseline alpha · source changes 2026-10-23
 
 - Added reproducible baseline and Pip source editions with separate bundle, preference, model/history and credential namespaces.
 - Baseline presentation uses system fonts, native button styles, semantic colors and a static system icon.

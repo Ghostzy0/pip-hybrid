@@ -1,6 +1,7 @@
 import AppKit
 import LocalSwitchCore
 import SwiftUI
+import UniformTypeIdentifiers
 
 enum SwitchPage: String, CaseIterable {
   case workspace = "Workspace"
@@ -27,6 +28,20 @@ struct RootView: View {
   @Environment(\.accessibilityReduceMotion) private var reduced
   @State private var qaOnboarding = false
   @State private var exploring = false
+  @State private var historyQuery = ""
+  @State private var exportWarning = false
+  @State private var exportText = ""
+  @State private var exportPanel: NSSavePanel?
+  @State private var searchTask: Task<Void, Never>?
+  @State private var searchRequest = UUID()
+  @State private var matchingChatIDs = Set<UUID>()
+  @State private var searching = false
+  private var visibleConversations: [SavedConversation] {
+    guard PipAppIdentity.isEnhanced,
+      !historyQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    else { return app.conversations }
+    return app.conversations.filter { matchingChatIDs.contains($0.id) }
+  }
   init() {
     if let path = Bundle.main.object(forInfoDictionaryKey: "PipHybridAcceptanceRoot") as? String {
       // A dedicated, freshly signed test bundle owns this synthetic lane. No production
@@ -160,6 +175,41 @@ struct RootView: View {
     } message: {
       Text("This deletes the locally saved conversation. It cannot be undone.")
     }
+    .confirmationDialog(
+      "Export an unencrypted copy?", isPresented: $exportWarning,
+      titleVisibility: .visible
+    ) {
+      Button("Choose destination") { saveExport() }
+      Button("Cancel", role: .cancel) { exportText = "" }
+    } message: {
+      Text(
+        "Only this chat and its draft will be exported. The Markdown file is outside encrypted history. Anyone with access to that file can read it."
+      )
+    }
+    .onChange(of: exportWarning) { _, presented in
+      if !presented { exportText = "" }
+    }
+    .onChange(of: historyQuery) { _, _ in search(app.conversations) }
+    .onReceive(app.$conversations) { search($0) }
+    .onChange(of: sidebarVisible) { _, visible in
+      if !visible { clearSearch() }
+    }
+    .onChange(of: app.historyAvailable) { _, available in
+      if !available {
+        clearSearch()
+        exportWarning = false
+        exportText = ""
+        exportPanel?.cancel(nil)
+        exportPanel = nil
+      }
+    }
+    .onDisappear {
+      clearSearch()
+      exportWarning = false
+      exportText = ""
+      exportPanel?.cancel(nil)
+      exportPanel = nil
+    }
     .onChange(of: page) { _, _ in
       app.pendingCloudReview = nil
       app.completionPulse = nil
@@ -196,6 +246,11 @@ struct RootView: View {
             id: UUID(), messages: [ChatMessage(role: "user", content: "Synthetic chat \(number)")])
         }
       }
+      if args.contains("--qa-output"), PipAppIdentity.isEnhanced,
+        let index = args.firstIndex(of: "--qa-history-query"), args.indices.contains(index + 1)
+      {
+        historyQuery = args[index + 1]
+      }
       if let qaScreen {
         switch qaScreen {
         case "onboarding":
@@ -213,7 +268,10 @@ struct RootView: View {
     VStack(alignment: .leading, spacing: 0) {
       HStack(spacing: 10) {
         PipView(size: 36, live: false)
-        Text(PipAppIdentity.displayName).font(.pip(size: 19, weight: .semibold))
+        Text(PipAppIdentity.displayName).font(
+          .pip(size: PipAppIdentity.isEnhanced ? 16 : 19, weight: .semibold)
+        )
+        .lineLimit(2)
       }.padding(.top, 44).padding(.horizontal, 20).padding(.bottom, 26)
       Button {
         app.newChat()
@@ -243,9 +301,36 @@ struct RootView: View {
       if !app.conversations.isEmpty {
         Text("Recent chats").font(.pip(size: 11, weight: .medium)).foregroundStyle(p.secondary)
           .padding(.horizontal, 25).padding(.top, 27).padding(.bottom, 9)
+        if PipAppIdentity.isEnhanced {
+          HStack(spacing: 5) {
+            TextField("Search saved chats", text: $historyQuery)
+              .textFieldStyle(.roundedBorder).accessibilityLabel("Search saved chats")
+              .disabled(
+                !app.historyAvailable && !ProcessInfo.processInfo.arguments.contains("--qa-output"))
+            if !historyQuery.isEmpty {
+              Button {
+                historyQuery = ""
+              } label: {
+                Image(systemName: "xmark.circle.fill")
+              }
+              .buttonStyle(.plain).accessibilityLabel("Clear saved chat search")
+            }
+          }.padding(.horizontal, 18)
+          Text(
+            searching
+              ? "Searching saved chats…"
+              : "\(visibleConversations.count) of \(app.conversations.count) saved chats"
+          )
+          .font(.pip(size: 10)).foregroundStyle(p.secondary)
+          .padding(.horizontal, 25).padding(.vertical, 5)
+          if visibleConversations.isEmpty && !searching {
+            Text("No saved chats match.").font(.pip(size: 11)).foregroundStyle(p.secondary)
+              .padding(.horizontal, 25).padding(.vertical, 6)
+          }
+        }
         ScrollView {
           VStack(alignment: .leading, spacing: 2) {
-            ForEach(app.conversations) { conversation in
+            ForEach(visibleConversations) { conversation in
               Button {
                 app.openConversation(conversation.id)
                 page = .workspace
@@ -278,8 +363,9 @@ struct RootView: View {
           horizontal: false, vertical: true)
         HStack(spacing: 5) {
           Circle().fill(p.accent).frame(width: 6, height: 6)
-          Text("Mac alpha · 0.1").font(.pip(size: 10, design: .monospaced)).foregroundStyle(
-            p.secondary)
+          Text("Mac alpha · " + PipAppIdentity.version).font(.pip(size: 10, design: .monospaced))
+            .foregroundStyle(
+              p.secondary)
         }
       }.padding(17).frame(maxWidth: .infinity, alignment: .leading)
         .background(p.panel.opacity(0.6), in: RoundedRectangle(cornerRadius: 12))
@@ -299,6 +385,24 @@ struct RootView: View {
       Text(page.rawValue).font(.pip(size: 12, weight: .medium))
       Spacer()
       Text(app.status).font(.pip(size: 11)).foregroundStyle(p.secondary).lineLimit(1)
+      if PipAppIdentity.isEnhanced && page == .workspace {
+        Button {
+          guard !app.isBusy else { return }
+          let title = String(
+            (app.messages.first(where: { $0.role == "user" })?.content
+              ?? app.draft).prefix(70))
+          exportText = ConversationTools.markdown(
+            title: title, messages: app.messages, draft: app.draft)
+          exportWarning = true
+        } label: {
+          Image(systemName: "square.and.arrow.up")
+        }
+        .buttonStyle(QuietButtonStyle())
+        .disabled(app.isBusy || (app.messages.isEmpty && app.draft.isEmpty))
+        .accessibilityLabel("Export current chat as Markdown")
+        .help("Export current chat as Markdown")
+        .keyboardShortcut("e", modifiers: [.command, .shift])
+      }
       if app.isBusy && page != .workspace {
         Button("Stop", systemImage: "stop.fill") { app.stop() }
           .buttonStyle(QuietButtonStyle())
@@ -310,4 +414,68 @@ struct RootView: View {
     .padding(.leading, sidebarVisible ? 12 : 82).padding(.trailing, 21)
     .frame(height: 54)
   }
+  private func saveExport() {
+    guard PipAppIdentity.isEnhanced, !exportText.isEmpty, exportPanel == nil else { return }
+    let snapshot = exportText
+    exportText = ""
+    let panel = NSSavePanel()
+    panel.allowedContentTypes = [UTType(filenameExtension: "md") ?? .plainText]
+    panel.nameFieldStringValue = "Hybrid chat.md"
+    panel.canCreateDirectories = true
+    panel.prompt = "Export"
+    panel.message = "This is an unencrypted copy of the selected chat and its draft."
+    let model = app
+    exportPanel = panel
+    panel.begin { [weak panel, weak model] response in
+      defer { exportPanel = nil }
+      guard response == .OK, let destination = panel?.url, let model else { return }
+      do {
+        try Data(snapshot.utf8).write(to: destination, options: .atomic)
+        model.status = "Markdown exported"
+      } catch {
+        model.status = "Export was not saved"
+        model.error = "The export could not be saved. Your chat and draft are unchanged."
+      }
+    }
+  }
+  private func clearSearch() {
+    searchTask?.cancel()
+    searchTask = nil
+    searchRequest = UUID()
+    historyQuery = ""
+    matchingChatIDs = []
+    searching = false
+  }
+  private func search(_ conversations: [SavedConversation]) {
+    searchTask?.cancel()
+    let request = UUID()
+    searchRequest = request
+    guard PipAppIdentity.isEnhanced,
+      !historyQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    else {
+      searchTask = nil
+      matchingChatIDs = []
+      searching = false
+      return
+    }
+    let query = historyQuery
+    matchingChatIDs = []
+    searching = true
+    searchTask = Task { @MainActor in
+      do { try await Task.sleep(for: .milliseconds(150)) } catch { return }
+      guard !Task.isCancelled else { return }
+      let worker = Task.detached(priority: .userInitiated) {
+        Set(ConversationTools.matching(conversations, query: query).map(\.id))
+      }
+      let result = await withTaskCancellationHandler {
+        await worker.value
+      } onCancel: {
+        worker.cancel()
+      }
+      guard !Task.isCancelled, searchRequest == request else { return }
+      matchingChatIDs = result
+      searching = false
+    }
+  }
+
 }
