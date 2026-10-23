@@ -1,0 +1,39 @@
+name: Source checks (manual)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: source-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Build script syntax
+        run: sh -n scripts/build-mac.sh
+      - name: Runtime preparation syntax
+        run: python3 -m py_compile scripts/prepare-mac-runtime.py
+      - name: Export structure and asset integrity
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, pathlib
+          root = pathlib.Path('.')
+          manifest = json.loads((root / 'EXPORT-MANIFEST.json').read_text())
+          for item in manifest['files']:
+              # The manifest hashes identify the initial export, not future commits.
+              relative = pathlib.PurePosixPath(item['path'])
+              assert not relative.is_absolute() and '..' not in relative.parts
+              path = root / relative
+              assert path.is_file() and not path.is_symlink(), item['path']
+          fonts = root / 'apps/mac/Resources/Fonts'
+          font_info = json.loads((fonts / 'PROVENANCE.json').read_text())
+          for name in ('Geist.ttf', 'GeistMono.ttf', 'OFL.txt'):
+              assert hashlib.sha256((fonts / name).read_bytes()).hexdigest() == font_info['files'][name]
+          provenance = json.loads((root / 'apps/mac/Resources/PIP-PROVENANCE.json').read_text())
+          icon = root / 'apps/mac/Resources/Pip.icns'
+          assert provenance['generatedIcon']['regenerationRequired'] is False
+          assert provenance['generatedIcon']['sha256'] == hashlib.sha256(icon.read_bytes()).hexdigest()
+          print('Export structure and asset integrity passed; native tests did not run.')
+          PY

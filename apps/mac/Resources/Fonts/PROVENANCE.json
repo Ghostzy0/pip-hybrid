@@ -1,0 +1,10 @@
+{
+  "source": "https://github.com/vercel/geist-font/releases/tag/v1.8.1",
+  "archiveSHA256": "70f42c1452fb6df12ea183e20a65999157354f91d11dac18b4c713e383808ec2",
+  "license": "SIL Open Font License 1.1",
+  "files": {
+    "Geist.ttf": "8863f44d66c5d12494d80bb6e205f13579e93f41892289f66c56b172179e8e70",
+    "OFL.txt": "c683bfbcc7e087f5d37a54ef628f10387c451a83ddc459b151403a164ac46c90",
+    "GeistMono.ttf": "ed6bb36e89f1fa7c23d7e4ebb5b13899b6176ae78383e7e756fbf17f26db6f99"
+  }
+}

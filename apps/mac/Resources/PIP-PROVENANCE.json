@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "asset": "Pip Hybrid original pebble mascot",
+  "revision": "original-pebble-2026-10-23",
+  "license": "MIT",
+  "copyright": "Copyright (c) 2026 Pip Hybrid contributors",
+  "authorship": "Original hand-authored vector artwork and native SwiftUI Path implementation created for Pip Hybrid.",
+  "sources": [
+    {
+      "path": "apps/mac/Sources/LocalSwitchMac/PipGeometry.swift",
+      "role": "Native silhouette source",
+      "license": "MIT"
+    },
+    {
+      "path": "docs/assets/pip-hybrid.svg",
+      "role": "Companion vector artwork using the same original silhouette with simple offset eyes",
+      "license": "MIT"
+    }
+  ],
+  "design": {
+    "body": "Six independently drawn cubic Bezier segments form a smooth asymmetrical pebble on a square canvas.",
+    "palette": "The native shape inherits the caller's theme. The companion SVG uses a quiet dark body and light eyes.",
+    "scope": "This is an original mascot adaptation, not an exact reproduction of another mascot's geometry or motion engine."
+  },
+  "independence": {
+    "method": "Drawn from a blank path using the project's written visual direction.",
+    "restrictedSourceReadOrCopiedForReplacement": false,
+    "externalGeometryDependency": false,
+    "thirdPartyMascotAssetsIncluded": false
+  },
+  "supersedes": {
+    "previousArt": "The previous restricted-derived mascot geometry and any icon rendered from it are not public-safe and must be excluded from public exports.",
+    "preservation": "This replacement does not grant a licence to the previous restricted artwork."
+  },
+  "generatedIcon": {
+    "regenerationRequired": false,
+    "sha256": "76fd7c88340ddfa0778cec3228345d79c705d38209881585c4bbb6500dc7acb9",
+    "status": "Regenerated from original-pebble-2026-10-23 native view and visually inspected",
+    "method": "Windowless NSHostingView/bitmap export before Scene construction; sips/iconutil sizes",
+    "sourcePNG_SHA256": "a9e00c139587a4c4efe1085213d59bb03a29f5faa88675c318fb0f3ed8bd3554"
+  },
+  "verification": {
+    "nativeBuildRun": true,
+    "nativeVisualReviewRun": true,
+    "binaryGeneratedByThisChange": true
+  }
+}
