@@ -2,6 +2,19 @@
 
 This source export is not a test receipt. Results must name the exact snapshot/commit, edition, command, OS/architecture, inputs and observed result. Do not carry a test count or runtime claim from a historical build into a new export.
 
+## Qualified source snapshot — 23 October 2026
+
+A fresh remote clone at `c4d4d318789bd9d6962d17098fde63779a78163e` passed **99 tests per variant** (79 Core, 20 Mac; zero failures or skips) for baseline, Pip, baseline Plus and Pip Plus on macOS 27.0.1 (26A434), arm64. All 75 manifest entries matched before testing; tracked status remained clean afterwards. Each variant was then packaged with `scripts/build-mac.sh <variant>` and passed deep/strict ad-hoc signature verification. These are local source/package checks, not signed distribution or native interaction acceptance.
+
+| Variant | Version | Executable SHA-256 |
+| --- | --- | --- |
+| baseline | 0.1.0 | `7f6e765d3f32dacdd13b15ced11e03a622b05057f586e26fcea17872844ad13b` |
+| pip | 0.1.0 | `b8f811e852dbe5e201b6c1eb0b5b577b1b3738823fd0dfa523470bef17342f64` |
+| baseline-plus | 0.2.0 | `34f5b27aae32c31a70ac7249203c7d9da62711498d65de9b810e418d3a95ee62` |
+| pip-plus | 0.2.0 | `a38f67902167eed7d398b6c9d5741250826d14f7d5c6db9bb39135e1fbf1fdfa` |
+
+Later documentation-only changes do not extend these results to changed implementation. Protected-history native restart, enhanced search/export interaction, live provider lifecycle, accessibility and complete Perplexity workflow parity remain separate gates.
+
 ## Reproducible source checks
 
 From the source root on an Apple Silicon Mac with full Xcode:

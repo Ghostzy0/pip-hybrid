@@ -18,9 +18,13 @@ jobs:
       - name: Export structure and asset integrity
         run: |
           python3 - <<'PY'
-          import hashlib, json, pathlib
+          import hashlib, json, pathlib, subprocess
           root = pathlib.Path('.')
           manifest = json.loads((root / 'EXPORT-MANIFEST.json').read_text())
+          listed = [item['path'] for item in manifest['files']]
+          assert len(listed) == len(set(listed)), 'Duplicate manifest paths'
+          tracked = set(subprocess.check_output(['git', 'ls-files', '-z']).decode().split('\0')) - {''}
+          assert tracked == set(listed) | {'EXPORT-MANIFEST.json'}, 'Unmanifested or missing tracked files'
           for item in manifest['files']:
               # The manifest hashes identify the initial export, not future commits.
               relative = pathlib.PurePosixPath(item['path'])

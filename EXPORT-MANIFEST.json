@@ -25,8 +25,8 @@
     },
     {
       "path": ".github/workflows/source-checks.yml",
-      "bytes": 1821,
-      "sha256": "54c1b69487d819dd9f20ca537a06df72304f895180321938e1f44cc9ae9a5ada"
+      "bytes": 2186,
+      "sha256": "fbde3fc266e8caafc6b35fb1a7b7a70de6d78d7bc40038d3aa72bc8c7cef05e5"
     },
     {
       "path": ".gitignore",
@@ -50,8 +50,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 4803,
-      "sha256": "f3a53217786d1d36c3fd26a0ccaac22699f93caa9e02645bf868bf686363c71a"
+      "bytes": 4836,
+      "sha256": "9326ce74e4ff8dbbfb8d1decfc9809b0fe862f69e2380320fa99ccd48a8a531e"
     },
     {
       "path": "SECURITY.md",
@@ -324,6 +324,11 @@
       "sha256": "0c8b53d7d7c9c136a94bf0229edff187af1b8e656d5c2e2462b671a84e44354d"
     },
     {
+      "path": "docs/FAQ.md",
+      "bytes": 3550,
+      "sha256": "ab27298c173bec15a48329259740f98af9ff4304ba8ebba105fbdb1b3da3911f"
+    },
+    {
       "path": "docs/PRIVACY.md",
       "bytes": 3948,
       "sha256": "0e7ccb1e7c357c30414ca1aa8fd4776fe55d3f5b10ebed0e6bf4e4891f10594c"
@@ -340,8 +345,8 @@
     },
     {
       "path": "docs/TESTING.md",
-      "bytes": 3865,
-      "sha256": "dd8232ac66bc6cac81748546071a9460ed6ca51c7550485d125752457606bad6"
+      "bytes": 5131,
+      "sha256": "c0690f1db3dd7e3a7ba01b5a70458053cdced733aa7d71fb042fff6ca7bdb1fa"
     },
     {
       "path": "docs/assets/baseline-workspace.png",
@@ -367,6 +372,11 @@
       "path": "docs/engineering/mac-model-catalogue.json",
       "bytes": 12159,
       "sha256": "a0ee877058d625731dafa323982242fab031cfd20f6e4cc96dfdb17059485f57"
+    },
+    {
+      "path": "llms.txt",
+      "bytes": 980,
+      "sha256": "93ad6077cc611bf86664daa41c90dd41fd4239026ee6444f0582a4d25ae44124"
     },
     {
       "path": "scripts/build-mac.sh",

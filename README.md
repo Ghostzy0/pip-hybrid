@@ -6,7 +6,7 @@ A native Mac workspace for local model chat, verified model downloads, Stop, enc
 
 **Experimental source.** Build and test it yourself; no tested public binary is offered. This snapshot does not establish a tested public binary, complete reference parity, broad hardware/provider compatibility, accessibility certification, notarisation or production readiness. There is no download or release URL advertised here.
 
-[Setup with an assistant](docs/AI-SETUP.md) · [Four variants](docs/EDITIONS.md) · [Privacy](docs/PRIVACY.md) · [Testing](docs/TESTING.md) · [Release limits](docs/RELEASE.md) · [Change notes](CHANGELOG.md)
+[Setup with an assistant](docs/AI-SETUP.md) · [Four variants](docs/EDITIONS.md) · [Privacy](docs/PRIVACY.md) · [Testing](docs/TESTING.md) · [Release limits](docs/RELEASE.md) · [Change notes](CHANGELOG.md) · [FAQ and how-to](docs/FAQ.md)
 
 ## Build on your Mac
 
