@@ -318,10 +318,8 @@ final class HardwareDownloadTests: XCTestCase {
     var repository = URL(fileURLWithPath: #filePath).deletingLastPathComponent()
     for _ in 0..<4 { repository.deleteLastPathComponent() }
     let path = repository.appendingPathComponent("docs/engineering/mac-model-catalogue.json")
-    // The standalone package can be copied without repository docs; normal repository CI checks parity.
-    guard FileManager.default.fileExists(atPath: path.path) else {
-      throw XCTSkip("Reviewed metadata is available in a full repository checkout")
-    }
+    // The reviewed metadata ships in both the internal repository and clean source
+    // export. A missing fixture is a broken checkout, not a skipped parity check.
     let object = try XCTUnwrap(
       JSONSerialization.jsonObject(with: Data(contentsOf: path)) as? [String: Any])
     let entries = try XCTUnwrap(object["models"] as? [[String: Any]])

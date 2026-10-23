@@ -29,6 +29,19 @@ struct ModelLibraryView: View {
               horizontal: false, vertical: true)
           }
         }
+        if ProcessInfo.processInfo.arguments.contains("--qa-output"),
+          ProcessInfo.processInfo.arguments.contains("--qa-download-preview")
+        {
+          VStack(alignment: .leading, spacing: 12) {
+            Text("Appearance preview · synthetic download states").font(
+              .pip(size: 12, weight: .semibold))
+            Text("Downloading · 42%").font(.pip(size: 11))
+            ModelDownloadProgress(value: 0.42)
+            Text("Paused · 42%").font(.pip(size: 11))
+            ModelDownloadProgress(value: 0.42)
+            Button("Disabled action") {}.buttonStyle(QuietButtonStyle()).disabled(true)
+          }.padding(16).background(p.quiet, in: RoundedRectangle(cornerRadius: 18))
+        }
         HStack(alignment: .top, spacing: 26) {
           modelFact(
             "memorychip",
@@ -176,7 +189,7 @@ struct ModelRow: View {
           if models.phase == "verifying" {
             ProgressView().controlSize(.small)
           } else {
-            ProgressView(value: min(1, max(0, models.progress))).tint(p.accentInk)
+            ModelDownloadProgress(value: models.progress)
           }
           HStack(spacing: 10) {
             if models.phase == "downloading" {
@@ -245,5 +258,31 @@ struct ModelRow: View {
     .overlay(
       RoundedRectangle(cornerRadius: 14).strokeBorder(
         selected ? p.secondary.opacity(0.6) : p.border.opacity(0.6), lineWidth: 1))
+  }
+}
+
+/// Shared by real downloading/paused rows and isolated appearance previews.
+struct ModelDownloadProgress: View {
+  let value: Double
+  var body: some View {
+    ProgressView(value: min(1, max(0, value)))
+      .progressViewStyle(ModelDownloadProgressStyle())
+      .accessibilityLabel("Download progress")
+  }
+}
+
+private struct ModelDownloadProgressStyle: ProgressViewStyle {
+  @Environment(\.colorScheme) private var scheme
+  func makeBody(configuration: Configuration) -> some View {
+    let palette = SwitchPalette(scheme)
+    let fraction = min(1, max(0, configuration.fractionCompleted ?? 0))
+    // Native macOS tint is muted in an inactive window. Keep the actual segment
+    // readable there too, retaining ProgressView's value/accessibility semantics.
+    return GeometryReader { geometry in
+      ZStack(alignment: .leading) {
+        Capsule().fill(palette.border)
+        Capsule().fill(palette.ink).frame(width: geometry.size.width * fraction)
+      }
+    }.frame(height: 6)
   }
 }

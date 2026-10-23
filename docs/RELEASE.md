@@ -7,13 +7,15 @@ Local packaging commands:
 ```sh
 ./scripts/build-mac.sh baseline
 ./scripts/build-mac.sh pip
+./scripts/build-mac.sh baseline-plus
+./scripts/build-mac.sh pip-plus
 ```
 
-Both use four compilation jobs, prepare only the pinned runtime and leave the apps closed. Outputs under `dist/` are ad-hoc signed local builds. They are not notarised. Native OS account/permission prompts require the user's action. Never disable Gatekeeper or other system protections globally to run an experimental build.
+All use four compilation jobs, prepare only the pinned runtime and leave the apps closed. Outputs under `dist/` are ad-hoc signed local builds. They are not notarised. Native OS account/permission prompts require the user's action. Never disable Gatekeeper or other system protections globally to run an experimental build.
 
 Before releasing an exact source/package:
 
-1. Build and test both editions from a clean copy, preserving command/commit/host evidence and matching edition identities.
+1. Build and test all four variants from a clean copy, preserving command/commit/host evidence and matching edition identities.
 2. Resolve independent functional/data, UI/accessibility and packaged/security/licence review findings; clearly record unavailable consent/platform evidence.
 3. Verify the original regenerated icon against its provenance hash, font notices and hashes, runtime pin/notices, model terms and absence of private/restricted material.
 4. Inspect actual synthetic-content screenshots and update their build identities. Keep raw reference/private captures excluded.

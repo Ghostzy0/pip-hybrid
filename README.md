@@ -4,9 +4,9 @@
 
 A native Mac workspace for local model chat, verified model downloads, Stop, encrypted saved history and an optional explicitly reviewed ChatGPT connection.
 
-**Experimental source.** Build and test it yourself. This snapshot does not establish a tested public binary, complete reference parity, broad hardware/provider compatibility, accessibility certification, notarisation or production readiness. There is no download or release URL advertised here.
+**Experimental source.** Build and test it yourself; no tested public binary is offered. This snapshot does not establish a tested public binary, complete reference parity, broad hardware/provider compatibility, accessibility certification, notarisation or production readiness. There is no download or release URL advertised here.
 
-[Setup with an assistant](docs/AI-SETUP.md) · [Two editions](docs/EDITIONS.md) · [Privacy](docs/PRIVACY.md) · [Testing](docs/TESTING.md) · [Release limits](docs/RELEASE.md) · [Change notes](CHANGELOG.md)
+[Setup with an assistant](docs/AI-SETUP.md) · [Four variants](docs/EDITIONS.md) · [Privacy](docs/PRIVACY.md) · [Testing](docs/TESTING.md) · [Release limits](docs/RELEASE.md) · [Change notes](CHANGELOG.md) · [FAQ and how-to](docs/FAQ.md)
 
 ## Build on your Mac
 
@@ -25,15 +25,25 @@ Outputs are `dist/Pip Hybrid Baseline.app` and `dist/Pip Hybrid.app`. The build 
 
 When ready, open one build yourself. Configure a local model in Models; the smallest catalogue entry is about 639 MB, with additional memory/runtime/storage needs. Models are separate downloads with their own licences. Use synthetic prompts first. Account sign-in, native consent and reviewing any cloud request remain your actions.
 
-## Baseline and Pip
+## Baseline, Pip and enhanced variants
 
-Both editions compile the same backend and workflow source. `BASELINE_EDITION` selects system fonts, native controls, semantic colors and a static system icon. Pip selects the Paper theme and an original MIT mascot. Each has its own bundle ID, preferences, Application Support folder and Keychain service names; there is no automatic data, model or credential migration between them.
+All four variants compile the same backend and workflow source. Neutral and Pip baseline are 0.1 alpha; neutral and Pip enhanced are 0.2 alpha. The two enhanced variants add local saved-chat search and deliberate current-chat Markdown export with a plaintext warning. See the exact [release/build matrix](docs/EDITIONS.md). `BASELINE_EDITION` selects system fonts, native controls, semantic colors and a static system icon. Pip selects the Paper theme and an original MIT mascot. Each variant has its own bundle ID, preferences, Application Support folder and Keychain service names; there is no automatic data, model or credential migration between them.
 
 The baseline is an independently authored behavioral implementation on a licensed LocalSwitch foundation, inspired by aspects of [Perplexity](https://www.perplexity.ai/) as a workflow reference. It contains no proprietary Perplexity source/assets and makes no affiliation, endorsement or equivalence claim. Web research, broad document processing and a complete hybrid task graph are not established by this alpha.
 
+Use `./scripts/build-mac.sh baseline-plus` or `./scripts/build-mac.sh pip-plus` for enhanced packages. Run the corresponding flagged test commands in [EDITIONS](docs/EDITIONS.md) first.
+
+## Native previews
+
+The current Pip workspace and setup use an original MIT mascot. These native renders contain labelled synthetic state; they do not demonstrate a completed model request.
+
+![Pip workspace with synthetic sample state](docs/assets/pip-workspace.png)
+
+[Baseline workspace](docs/assets/baseline-workspace.png) · [Pip setup](docs/assets/pip-setup.png) · [Capture identities and limits](docs/SCREENSHOTS.md)
+
 ## About and references
 
-Maintained by [Ghostzy0](https://github.com/Ghostzy0). The intended standalone repository is `Ghostzy0/pip-hybrid`; this document does not assert that repository or a public release exists. Check the repository you are actually reading before using its issue or release pages.
+Maintained by [Ghostzy0](https://github.com/Ghostzy0). Repository: [Ghostzy0/pip-hybrid](https://github.com/Ghostzy0/pip-hybrid). Release and availability claims must match the repository state you are actually reading.
 
 Application source retains the [LocalSwitch MIT licence](LICENSE). Original Pip artwork is MIT. [llama.cpp](https://github.com/ggml-org/llama.cpp) supplies the separately downloaded runtime; [Geist](https://github.com/vercel/geist-font) supplies the licensed fonts for the Pip edition; catalogue Qwen model references retain their separate Apache-2.0 terms. See [notices](THIRD_PARTY_NOTICES.md) for exact pins and boundaries.
 

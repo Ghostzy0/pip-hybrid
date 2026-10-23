@@ -22,6 +22,10 @@ Saved chat content uses AES-256-GCM with a separate non-synchronising key in the
 
 Each source edition has a separate preferences domain, Application Support folder, model directory and Keychain service namespace. Neither automatically adopts the other edition's data or the original LocalSwitch store. [Edition names and paths](EDITIONS.md) identify these stores. Namespace separation does not restrict all filesystem/network privileges and is not a sandbox claim.
 
+## Enhanced search and export
+
+Enhanced variants search active-variant decrypted saved content locally in memory, including saved drafts; no persistent plaintext index is written. Search does not connect a provider. The explicit Markdown export contains one selected current chat and its labelled draft, and is intentionally unencrypted. It requires a warning plus a chosen destination. It excludes hidden system/tool records, account identifiers and provider credentials. Keep the resulting file private if its content is sensitive; your chosen folder may be synced by other software.
+
 ## Testing and reporting
 
 Use synthetic content for initial runs, screenshots and bug reports. Never publish tokens, private histories, model caches or account screenshots. Source tests cannot establish end-to-end retention, deletion, provider lifecycle or protected-storage behavior on your Mac. See [TESTING](TESTING.md) and [SECURITY](../SECURITY.md).

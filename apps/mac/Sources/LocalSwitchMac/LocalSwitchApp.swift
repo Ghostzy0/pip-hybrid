@@ -42,7 +42,7 @@ struct LocalSwitchApp: App {
         Button("About " + PipAppIdentity.displayName) {
           NSApp.orderFrontStandardAboutPanel(options: [
             .applicationName: PipAppIdentity.displayName,
-            .applicationVersion: "0.1.0 · Experimental alpha",
+            .applicationVersion: PipAppIdentity.version + " · Experimental alpha",
             .credits: NSAttributedString(
               string:
                 "Local models and explicitly reviewed cloud requests.\nMIT source by Pip Hybrid contributors. Maintained at github.com/Ghostzy0/pip-hybrid.\nBuilt with llama.cpp and Qwen; font and runtime notices included."

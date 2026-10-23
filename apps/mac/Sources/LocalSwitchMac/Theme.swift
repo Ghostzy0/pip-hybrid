@@ -71,6 +71,7 @@ extension Color {
   }
 #else
   struct QuietButtonStyle: ButtonStyle {
+    @Environment(\.isEnabled) private var enabled
     @Environment(\.colorScheme) private var scheme
     @Environment(\.accessibilityReduceMotion) private var reduced
     func makeBody(configuration: Configuration) -> some View {
@@ -80,8 +81,8 @@ extension Color {
         .padding(.horizontal, PipMetrics.buttonInset)
         .frame(minHeight: PipMetrics.control)
         .background(p.quiet, in: Capsule())
-        .foregroundStyle(p.ink)
-        .scaleEffect(configuration.isPressed && !reduced ? 0.97 : 1)
+        .foregroundStyle(enabled ? p.ink : p.secondary)
+        .scaleEffect(configuration.isPressed && enabled && !reduced ? 0.97 : 1)
         .animation(reduced ? nil : .easeOut(duration: 0.10), value: configuration.isPressed)
     }
   }

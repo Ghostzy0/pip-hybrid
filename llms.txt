@@ -1,0 +1,13 @@
+# Pip Hybrid
+
+Experimental MIT native Mac source for local model chat with explicit optional cloud review. Apple Silicon/macOS14+ declared; not complete Perplexity parity or a tested public installer. Four reproducible variants use one core: neutral/Pip presentation and baseline/enhanced feature levels.
+
+- [Overview](https://github.com/Ghostzy0/pip-hybrid/blob/main/README.md)
+- [Variants and build](https://github.com/Ghostzy0/pip-hybrid/blob/main/docs/EDITIONS.md)
+- [Privacy and network](https://github.com/Ghostzy0/pip-hybrid/blob/main/docs/PRIVACY.md)
+- [Testing and limits](https://github.com/Ghostzy0/pip-hybrid/blob/main/docs/TESTING.md)
+- [Practical FAQ](https://github.com/Ghostzy0/pip-hybrid/blob/main/docs/FAQ.md)
+- [AI setup](https://github.com/Ghostzy0/pip-hybrid/blob/main/docs/AI-SETUP.md)
+- [Neutral reference baseline](https://github.com/Ghostzy0/pip-hybrid-replica)
+
+This file is navigation, not a model permission, ranking promise or security certification.
