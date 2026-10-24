@@ -1,6 +1,6 @@
 # Testing and evidence boundaries
 
-This source export is not a test receipt. Results must name the exact snapshot/commit, edition, command, OS/architecture, inputs and observed result. Do not carry a test count or runtime claim from a historical build into a new export.
+This source export is not a test receipt. Results must name the exact snapshot/commit, edition, command, OS/architecture, inputs and observed result. Do not carry a test count or runtime claim from a historical build into a new export. The two public source repositories were present on 24 October: `Ghostzy0/pip-hybrid` main at `98ce7b883b6cbb651d6cc6a396cfe812cbc598c2` and `Ghostzy0/pip-hybrid-replica` main at `dc39561e7ecb996968097ac8bafff080bedcc2b0` (read-only remote ref check). Their availability is distinct from the qualification state of later private work.
 
 ## Qualified source snapshot — 23 October 2026
 
@@ -14,6 +14,12 @@ A fresh remote clone at `c4d4d318789bd9d6962d17098fde63779a78163e` passed **99 t
 | pip-plus | 0.2.0 | `a38f67902167eed7d398b6c9d5741250826d14f7d5c6db9bb39135e1fbf1fdfa` |
 
 Later documentation-only changes do not extend these results to changed implementation. Protected-history native restart, enhanced search/export interaction, live provider lifecycle, accessibility and complete Perplexity workflow parity remain separate gates.
+
+## Later source qualification · 24 October 2026
+
+The matching implementation at source revision `84cdf43` passed **109 XCTest cases** (84 Core, 25 Mac; zero failures) in the Pip Plus configuration on macOS 27.0.1 arm64. This includes the failed final-checkpoint, Keychain-policy failure and remembered-model regressions; the existing cloud-review suite also verifies that model changes invalidate previous approval without sending. Pip Plus local ad-hoc packaging and the isolated Smoke release build passed. The executable SHA-256 values were `73e38a37f18f51515a4f0068def90e33fecaef3bbd87ee02dd89ba2f147b36ba` (app) and `2e2b75b4f338425129b50bea96a175eb81033561a6986935a1e2901826643f8a` (Smoke). The export manifest identifies the corresponding source bytes.
+
+This was a local implementation qualification, not a fresh four-variant public clone or native interaction run. The package was not notarised or published. Owner Keychain behavior, provider lifecycle and full Perplexity workflows remain unqualified. CI against the exported commit must be recorded separately.
 
 ## Reproducible source checks
 
@@ -36,7 +42,7 @@ The complete four-variant commands and identities are in [EDITIONS](EDITIONS.md)
 | Area | Required evidence | This template's status |
 | --- | --- | --- |
 | Four-variant tests | Exact commands/head and real results for all flag combinations | Must be recorded for export head |
-| Clean-source packaging | Both editions built from this export; bundle ID/name/resources/signature checked | Pending separate receipt |
+| Clean-source packaging | All four variants built from this export; bundle ID/name/resources/signature checked | Pending separate receipt |
 | Local inference | Chosen model/hash, synthetic prompt, stream/Stop and recovery/restart | Host/model-specific; do not infer from fixtures |
 | Protected history | Native approval if needed, encrypted restart, lock/unavailable-key recovery without data loss | Requires consented native observation |
 | Provider | User-authorized supported sign-in, exact payload review, send/cancel/error and saved-session behavior | Requires consent/account and exact provider observation |

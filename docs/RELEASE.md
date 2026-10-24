@@ -1,6 +1,8 @@
 # Release and installation limits
 
-This snapshot is experimental source. No public repository availability, release URL, signed installer, notarisation, automatic update channel or stable release is asserted. The intended repository identity is `Ghostzy0/pip-hybrid`; verify actual published state before advertising it.
+This is experimental source in the public repositories [Ghostzy0/pip-hybrid](https://github.com/Ghostzy0/pip-hybrid) and [Ghostzy0/pip-hybrid-replica](https://github.com/Ghostzy0/pip-hybrid-replica). Public source availability does not mean a tested binary is offered. This documentation does not establish a current downloadable release, signed installer, notarisation, automatic update channel or stable release; check the live Releases pages before making artifact claims.
+
+The 23 October four-variant clean-clone result and the separate 24 October Pip Plus source/package qualification are described in [TESTING](TESTING.md). The later run includes the quiet-storage, remembered model selection and Smoke runtime-alias changes. It does not qualify native interaction or provider behavior, and no public binary is offered by this source patch. A changed export needs its own CI and review.
 
 Local packaging commands:
 
