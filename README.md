@@ -4,7 +4,7 @@
 
 A native Mac workspace for local model chat, verified model downloads, Stop, encrypted saved history and an optional explicitly reviewed ChatGPT connection.
 
-**Experimental source.** Build and test it yourself; no tested public binary is offered. This snapshot does not establish a tested public binary, complete reference parity, broad hardware/provider compatibility, accessibility certification, notarisation or production readiness. There is no download or release URL advertised here.
+**Experimental public source.** The source is published in [Ghostzy0/pip-hybrid](https://github.com/Ghostzy0/pip-hybrid); a separate recreation experiment is [Ghostzy0/pip-hybrid-replica](https://github.com/Ghostzy0/pip-hybrid-replica). No tested public binary or installer is offered by this documentation. Source publication does not establish complete reference parity, broad hardware/provider compatibility, accessibility certification, notarisation or production readiness. Check the repository's current Releases page for any newer artifact status before sharing download claims.
 
 [Setup with an assistant](docs/AI-SETUP.md) · [Four variants](docs/EDITIONS.md) · [Privacy](docs/PRIVACY.md) · [Testing](docs/TESTING.md) · [Release limits](docs/RELEASE.md) · [Change notes](CHANGELOG.md) · [FAQ and how-to](docs/FAQ.md)
 
@@ -29,7 +29,7 @@ When ready, open one build yourself. Configure a local model in Models; the smal
 
 All four variants compile the same backend and workflow source. Neutral and Pip baseline are 0.1 alpha; neutral and Pip enhanced are 0.2 alpha. The two enhanced variants add local saved-chat search and deliberate current-chat Markdown export with a plaintext warning. See the exact [release/build matrix](docs/EDITIONS.md). `BASELINE_EDITION` selects system fonts, native controls, semantic colors and a static system icon. Pip selects the Paper theme and an original MIT mascot. Each variant has its own bundle ID, preferences, Application Support folder and Keychain service names; there is no automatic data, model or credential migration between them.
 
-The baseline is an independently authored behavioral implementation on a licensed LocalSwitch foundation, inspired by aspects of [Perplexity](https://www.perplexity.ai/) as a workflow reference. It contains no proprietary Perplexity source/assets and makes no affiliation, endorsement or equivalence claim. Web research, broad document processing and a complete hybrid task graph are not established by this alpha.
+The baseline is an independently authored behavioral implementation on a licensed LocalSwitch foundation, inspired by aspects of [Perplexity](https://www.perplexity.ai/) as a workflow reference. It contains no proprietary Perplexity source/assets and makes no affiliation, endorsement or equivalence claim. Full workflow fidelity, web research, broad document processing and a complete hybrid task graph are not established by this alpha.
 
 Use `./scripts/build-mac.sh baseline-plus` or `./scripts/build-mac.sh pip-plus` for enhanced packages. Run the corresponding flagged test commands in [EDITIONS](docs/EDITIONS.md) first.
 
