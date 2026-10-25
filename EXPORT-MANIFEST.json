@@ -35,8 +35,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 4019,
-      "sha256": "e8190ed9471aa45faf56cb88223864b4a345114a1854aa8ef12aee1fd5ec7cbd"
+      "bytes": 4433,
+      "sha256": "ac1983146192473ad5488aaeaf30393def4889d99a7e1490848409ce452f08aa"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -250,8 +250,8 @@
     },
     {
       "path": "apps/mac/Sources/LocalSwitchMac/WorkspaceView.swift",
-      "bytes": 20032,
-      "sha256": "813b1cc0e8b71e2af479ed950d7aaf824ef6d83aa68bdb56f875c451ecf0f55b"
+      "bytes": 20087,
+      "sha256": "f82eca507153f84b57211aed5804615d873ce6a90cb91a9600ca1dcdb2742ec6"
     },
     {
       "path": "apps/mac/Sources/LocalSwitchSmoke/Smoke.swift",
@@ -335,8 +335,8 @@
     },
     {
       "path": "docs/RELEASE.md",
-      "bytes": 2993,
-      "sha256": "af859575fe1254c882c01c2dc367a5349a2e2d87f2d8a35634e2d0d905896ca3"
+      "bytes": 2955,
+      "sha256": "543e3f3dad75c492481f221de509ffcf712037df0f411ae4489444aab15ff597"
     },
     {
       "path": "docs/SCREENSHOTS.md",
@@ -345,8 +345,8 @@
     },
     {
       "path": "docs/TESTING.md",
-      "bytes": 7903,
-      "sha256": "7f33e254f18147dbbd9491a01cddf3fae743bc7ed9ec46bd1bf8f9fd9decdefd"
+      "bytes": 8962,
+      "sha256": "b73e2ffe08f78128509bd64a7eb56b6a6012f6fe1e9ec69745eea82566410c9b"
     },
     {
       "path": "docs/assets/baseline-workspace.png",

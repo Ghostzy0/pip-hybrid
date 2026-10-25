@@ -9,11 +9,12 @@
 
 The matching Pip Plus source passed 109 XCTest cases and local ad-hoc packaging on 24 October; the Smoke executable also rebuilt. The merged source candidate subsequently passed public CI with 109 tests and ad-hoc packaging in all four variants, plus the manual source checks. A narrow synthetic Core quit/window-close recovery test also passed locally; owner storage, provider and broader native acceptance remain separate gates. The published alpha is a source-only preview, not a public app binary. See [TESTING](docs/TESTING.md) and [RELEASE](docs/RELEASE.md) for the exact boundaries.
 
-## Pending source patch · 24 October 2026
+## Follow-up source patches · 24 October 2026
 
 - Ignore a late save-panel completion after its panel has been dismissed or replaced, so it cannot write an export or clear a newer panel. Current-panel completion still clears its own state.
+- Show only user/assistant roles in the workspace transcript so legacy internal system/tool entries are not rendered as user-facing messages; the filter does not rewrite stored records.
 
-The patched Pip Plus source `aac3398c345449d1f42cbbbdf77208d1ec567e5b` passed 109 local XCTest cases (84 Core, 25 Mac) and strict ad-hoc Pip Plus packaging on 24 October. All-four-variant hosted CI and native callback-interleaving checks remain pending; do not attribute the merged-candidate CI above to this patch. See [TESTING](docs/TESTING.md).
+The callback guard passed 109 local Pip Plus XCTest cases (84 Core, 25 Mac) and strict ad-hoc packaging. Follow-up public PR4 candidate `639bb43464b94a2734914c08dcd079ea898276a6` then passed all-four-variant hosted tests/package CI and manual source checks. The later transcript filter `14d6d7dc34382d6d4472b973bf2c1ca475f1a4fa` passed 109 local Pip Plus tests and ad-hoc packaging, but postdates that hosted CI and still needs a fresh all-four-variant run. Native save-panel interleaving and transcript interaction have not been accepted. See [TESTING](docs/TESTING.md).
 
 ## 0.2.0 enhanced alpha · source-only preview published 24 October 2026
 
