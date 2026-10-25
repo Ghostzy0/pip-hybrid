@@ -1,8 +1,8 @@
 # Release and installation limits
 
-This is experimental source in the public repositories [Ghostzy0/pip-hybrid](https://github.com/Ghostzy0/pip-hybrid) and [Ghostzy0/pip-hybrid-replica](https://github.com/Ghostzy0/pip-hybrid-replica). Public source availability does not mean a tested binary is offered. This documentation does not establish a current downloadable release, signed installer, notarisation, automatic update channel or stable release; check the live Releases pages before making artifact claims.
+This is experimental source in the public repositories [Ghostzy0/pip-hybrid](https://github.com/Ghostzy0/pip-hybrid) and [Ghostzy0/pip-hybrid-replica](https://github.com/Ghostzy0/pip-hybrid-replica). The custom repository has a published [v0.2.0-alpha.1 source-only preview](https://github.com/Ghostzy0/pip-hybrid/releases/tag/v0.2.0-alpha.1); it contains no app binary, runtime or model. Source availability does not mean a tested public binary is offered. There is no signed installer, notarisation, automatic update channel or stable release; check the live Releases pages before making artifact claims.
 
-The 23 October four-variant clean-clone result and the separate 24 October Pip Plus source/package qualification are described in [TESTING](TESTING.md). The later run includes the quiet-storage, remembered model selection and Smoke runtime-alias changes. It does not qualify native interaction or provider behavior, and no public binary is offered by this source patch. A changed export needs its own CI and review.
+The 23 October four-variant clean-clone result and the 24 October source qualifications are described in [TESTING](TESTING.md). Follow-up PR4 candidate `639bb43464b94a2734914c08dcd079ea898276a6` passed all-four-variant hosted tests and ad-hoc packaging, including the save-panel callback guard. A later workspace transcript-role filter passed local Pip Plus tests and packaging but still needs fresh all-four-variant hosted CI. Native callback interleaving and transcript interaction remain unverified; no public binary is offered by these source previews.
 
 Local packaging commands:
 
